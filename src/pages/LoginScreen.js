@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 
+import FormRow from "../components/FormRow";
 export default class LoginPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Login!!</Text>
+        <FormRow>
+          <TextInput />
+        </FormRow>
       </View>
     );
   }
