@@ -7,7 +7,14 @@ export default class LoginPage extends React.Component {
     return (
       <View style={styles.container}>
         <FormRow>
-          <TextInput />
+          <TextInput style={styles.input} placeholder="exemplo@mail.com" />
+        </FormRow>
+        <FormRow>
+          <TextInput
+            style={styles.input}
+            placeholder="******"
+            secureTextEntry
+          />
         </FormRow>
       </View>
     );
@@ -17,5 +24,9 @@ export default class LoginPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  input: {
+    paddingLeft: 5,
+    paddingRight: 5,
   },
 });

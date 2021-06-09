@@ -3,7 +3,17 @@ import { View, StyleSheet } from "react-native";
 
 const FormRow = (props) => {
   const { children } = props; //serve para acessar os filhos dentro da nossa "tag"
-  return <View>{children}</View>;
+  return <View style={styles.container}>{children}</View>;
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    backgroundColor: "white",
+    marginTop: 5,
+    marginBottom: 5,
+    elevation: 1,
+  },
+});
 
 export default FormRow;
