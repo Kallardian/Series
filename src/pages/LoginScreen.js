@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import firebase from "firebase";
 
 import FormRow from "../components/FormRow";
 export default class LoginPage extends React.Component {
@@ -10,6 +11,21 @@ export default class LoginPage extends React.Component {
       mail: "",
       password: "",
     };
+  }
+
+  componentDidMount() {
+    var firebaseConfig = {
+      apiKey: "AIzaSyD3w5IBoRok6pz3kuvTlP7tVdirLBwrWGI",
+      authDomain: "series-35748.firebaseapp.com",
+      projectId: "series-35748",
+      storageBucket: "series-35748.appspot.com",
+      messagingSenderId: "1069876638389",
+      appId: "1:1069876638389:web:51a79489c4df015b2c04fc",
+      measurementId: "G-6C4XCVPHFW",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
   }
 
   onChangeInput(field, value) {
