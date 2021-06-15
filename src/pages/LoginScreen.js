@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import firebase from "firebase";
 
 import FormRow from "../components/FormRow";
@@ -10,11 +16,12 @@ export default class LoginPage extends React.Component {
     this.state = {
       mail: "",
       password: "",
+      isLoading: false,
     };
   }
 
   componentDidMount() {
-    var firebaseConfig = {
+    const firebaseConfig = {
       apiKey: "AIzaSyD3w5IBoRok6pz3kuvTlP7tVdirLBwrWGI",
       authDomain: "series-35748.firebaseapp.com",
       projectId: "series-35748",
@@ -24,8 +31,11 @@ export default class LoginPage extends React.Component {
       measurementId: "G-6C4XCVPHFW",
     };
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    } else {
+      firebase.app();
+    }
   }
 
   onChangeInput(field, value) {
@@ -35,7 +45,24 @@ export default class LoginPage extends React.Component {
   }
 
   tryLogin() {
-    console.log(this.state);
+    this.setState({ isLoading: true });
+    const { mail, password } = this.state;
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(mail, password)
+      .then((user) => {
+        console.log("Ta tudo certo chefia", user);
+      })
+      .catch((error) => {
+        console.log("Deu ruim man", error);
+      })
+      .then(() => this.setState({ isLoading: false })); //esse cara será executado sempre
+  }
+
+  renderButton() {
+    if (this.state.isLoading) return <ActivityIndicator />;
+    return <Button title="Entrar" onPress={() => this.tryLogin()} />;
   }
 
   render() {
@@ -58,7 +85,7 @@ export default class LoginPage extends React.Component {
             onChangeText={(value) => this.onChangeInput("password", value)}
           />
         </FormRow>
-        <Button title="Entrar" onPress={() => this.tryLogin()} />
+        {this.renderButton()}
       </View>
     );
   }
